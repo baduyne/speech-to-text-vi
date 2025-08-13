@@ -31,25 +31,21 @@ def hf_login():
 # Dataset loading & preprocessing
 def load_and_prepare_dataset():
     dataset = load_dataset("mozilla-foundation/common_voice_17_0", "vi", trust_remote_code=True)
-    splits_to_merge = ["train", "validation", "other", "test", "validated"]
+    splits_to_merge = ["train", "validation", "other", "validated"]
     datasets_to_merge = [dataset[split] for split in splits_to_merge if split in dataset]
-    full_dataset = concatenate_datasets(datasets_to_merge).shuffle(seed=42)
+    full_dataset = concatenate_datasets(datasets_to_merge).shuffle(seed=3107)
     print(f"Total samples: {len(full_dataset)}")
 
-    # Split 80/10/10
-    train_test_split = full_dataset.train_test_split(test_size=0.2, seed=3107)
-    test_dev_split = train_test_split["test"].train_test_split(test_size=0.5, seed=3107)
+    split_dataset = full_dataset.train_test_split(test_size=0.2, seed=3107)
 
-    train_dataset = train_test_split["train"].select_columns(["audio", "sentence"])
-    dev_dataset = test_dev_split["train"].select_columns(["audio", "sentence"])
-    test_dataset = test_dev_split["test"].select_columns(["audio", "sentence"])
+    train_dataset = split_dataset["train"].select_columns(["audio", "sentence"])
+    valid_dataset = split_dataset["test"].select_columns(["audio", "sentence"])
 
     # Cast audio column
     train_dataset = train_dataset.cast_column("audio", Audio(sampling_rate=16000))
-    dev_dataset = dev_dataset.cast_column("audio", Audio(sampling_rate=16000))
-    test_dataset = test_dataset.cast_column("audio", Audio(sampling_rate=16000))
+    valid_dataset = valid_dataset.cast_column("audio", Audio(sampling_rate=16000))
     
-    return train_dataset, dev_dataset, test_dataset
+    return train_dataset, valid_dataset
 
 
 # Load processors (feature extractor + tokenizer + processor)
@@ -135,13 +131,14 @@ def build_model(device="cpu"):
 
 
 # Training arguments
-def get_training_args(output_dir="./whisper-small-vi"):
+def get_training_args(output_dir="./whisper-small-vi", num_epochs=15):
     return Seq2SeqTrainingArguments(
         output_dir=output_dir,
         per_device_train_batch_size=14,
         gradient_accumulation_steps=1,
         learning_rate=1e-5,
         warmup_steps=100,
+        num_train_epochs=num_epochs,                                        
         gradient_checkpointing=True,
         fp16=True,
         eval_strategy="steps",
@@ -158,6 +155,7 @@ def get_training_args(output_dir="./whisper-small-vi"):
     )
 
 
+
 # Main training function
 def main():
     hf_login()
@@ -165,15 +163,14 @@ def main():
     print(f"Using device: {device}")
 
     # Dataset
-    train_ds, dev_ds, test_ds = load_and_prepare_dataset()
+    train_ds, valid_ds = load_and_prepare_dataset()
 
     # Processors
     feat_ext, tokenizer, processor = load_processors()
 
     # Prepare datasets
     train_ds = prepare_dataset(train_ds, feat_ext, tokenizer)
-    dev_ds = prepare_dataset(dev_ds, feat_ext, tokenizer)
-    test_ds = prepare_dataset(test_ds, feat_ext, tokenizer)
+    valid_ds = prepare_dataset(valid_ds, feat_ext, tokenizer)
 
     # Data collator
     data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
@@ -182,16 +179,16 @@ def main():
     model = build_model(device)
 
     # Trainer
-    training_args = get_training_args()
+    training_args = get_training_args(num_epochs=15)
     trainer = Seq2SeqTrainer(
         model=model,
         args=training_args,
         train_dataset=train_ds,
-        eval_dataset=dev_ds,
+        eval_dataset=valid_ds,
         data_collator=data_collator,
         compute_metrics=lambda pred: compute_metrics(pred, tokenizer),
         tokenizer=tokenizer,
-        callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=5)]
     )
     model.config.use_cache = False
 

@@ -42,10 +42,10 @@ async def upload_audio(file: UploadFile = File(...)):
     print(text_output)
     text_output = get_response(conversation_chain, text_output)
     
-    # 4. Xóa file tạm
-    if os.path.exists(tmp_filename):
-        os.remove(tmp_filename)
-    if os.path.exists(wav_filename):
-        os.remove(wav_filename)
+    # # 4. Xóa file tạm
+    # if os.path.exists(tmp_filename):
+    #     os.remove(tmp_filename)
+    # if os.path.exists(wav_filename):
+    #     os.remove(wav_filename)
 
     return JSONResponse({"text": text_output})

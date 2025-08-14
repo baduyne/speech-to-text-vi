@@ -5,7 +5,7 @@ whisper-finetune-small-vi
 whisper
 ggml-model-q5.ggml
 ggml-model.bin
-test_audio.mp3
+test_audio
 test_audio.mp3.txt
 denose.py
 tmp_audio/

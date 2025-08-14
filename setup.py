@@ -7,9 +7,6 @@ import sys
 MODEL_REPO = "baduyne/whisper-small-vi"
 MERGED_MODEL_PATH = "./whisper-finetune-small-vi"
 
-# Download necessary libraries 
-subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], check=True)
-
 # ==== 1. Merge LoRA ====
 if not os.path.exists(MERGED_MODEL_PATH):
     print("Merging LoRA into base model...")

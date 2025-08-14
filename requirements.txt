@@ -19,3 +19,4 @@ langchain
 langchain-ollama
 langchain-community
 noisereduce
+rnnoise-cli

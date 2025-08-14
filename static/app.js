@@ -9,12 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Helper to append a message to the chat
     function appendMessage(text, sender = "bot") {
+        let formattedText = text
+            .replace(/\*\*(.*?)\*\*/g, "\n- $1") 
+            .replace(/\*(.*?)\*/g, "\n$1");     
+
+        formattedText = formattedText.replace(/\n/g, "<br>");
+
         const msgDiv = document.createElement("div");
-        msgDiv.textContent = text;
+        msgDiv.innerHTML = formattedText; // dùng innerHTML để render xuống dòng
         msgDiv.className = sender === "user" ? "user-message" : "bot-message";
         chatBox.appendChild(msgDiv);
         chatBox.scrollTop = chatBox.scrollHeight; // auto scroll
     }
+
 
     startBtn.onclick = async () => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });

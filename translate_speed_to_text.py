@@ -1,10 +1,19 @@
 import subprocess
 import os
 import uuid
+import noisereduce as nr
+import soundfile as sf
 
 TMP_DIR = "./tmp_audio"
 MODEL_PATH = "./ggml-model-q5.ggml"
 os.makedirs(TMP_DIR, exist_ok=True)
+
+def reduce_noise(path:str) ->str :
+    audio, sr = sf.read(path)
+    noise_clip = audio[:int(sr*1)] 
+    reduced_noise = nr.reduce_noise(y=audio, y_noise=noise_clip, sr=sr)
+    sf.write(path, reduced_noise, sr)
+
 
 def process_audio(file_path: str) -> str:
 
@@ -20,6 +29,10 @@ def process_audio(file_path: str) -> str:
             return f"Lỗi convert audio: {e.stderr}"
     else:
         wav_filename = file_path
+
+    # denoise 
+    # reduce_noise(wav_filename)
+
 
     txt_output = ""
     try:
@@ -37,7 +50,7 @@ def process_audio(file_path: str) -> str:
         if os.path.exists(txt_file):
             with open(txt_file, "r", encoding="utf-8") as f:
                 txt_output = f.read().strip()
-            os.remove(txt_file)
+            # os.remove(txt_file)
     except subprocess.CalledProcessError as e:
         txt_output = f"Whisper error: {e.stderr}"
 

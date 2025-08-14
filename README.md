@@ -1,7 +1,7 @@
 # Hệ thống Nhận dạng Giọng nói Tiếng Việt (ASR)
 
 ## Giới thiệu
-Dự án này triển khai hệ thống **Automatic Speech Recognition (ASR)** cho tiếng Việt, đồng thời hỗ trợ **đa ngôn ngữ** dựa trên repo [whisper.cpp](https://github.com/ggml-org/whisper.cpp).  
+Dự án này triển khai hệ thống **Automatic Speech Recognition (ASR)** cho tiếng Việt, đồng thời hỗ trợ **đa ngôn ngữ**.
 Hệ thống đã được **fine-tune** để giảm tỷ lệ lỗi WER (Word Error Rate) và tích hợp **lọc nhiễu môi trường** giúp cải thiện độ chính xác nhận dạng.
 Mô hình sau khi được fine tuning được lưu tại [baduyne/whisper-small-vi](https://huggingface.co/baduyne/whisper-small-vi)
 ##  Tính năng chính

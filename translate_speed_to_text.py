@@ -10,7 +10,7 @@ os.makedirs(TMP_DIR, exist_ok=True)
 
 def reduce_noise(path:str) ->str :
     audio, sr = sf.read(path)
-    noise_clip = audio[:int(sr*1)] 
+    noise_clip = audio[:int(sr*0.5)] 
     reduced_noise = nr.reduce_noise(y=audio, y_noise=noise_clip, sr=sr)
     sf.write(path, reduced_noise, sr)
 
@@ -31,7 +31,7 @@ def process_audio(file_path: str) -> str:
         wav_filename = file_path
 
     # denoise 
-    # reduce_noise(wav_filename)
+    reduce_noise(wav_filename)
 
 
     txt_output = ""

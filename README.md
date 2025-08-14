@@ -3,7 +3,7 @@
 ## Giới thiệu
 Dự án này triển khai hệ thống **Automatic Speech Recognition (ASR)** cho tiếng Việt, đồng thời hỗ trợ **đa ngôn ngữ** dựa trên repo [whisper.cpp](https://github.com/ggml-org/whisper.cpp).  
 Hệ thống đã được **fine-tune** để giảm tỷ lệ lỗi WER (Word Error Rate) và tích hợp **lọc nhiễu môi trường** giúp cải thiện độ chính xác nhận dạng.
-
+Mô hình sau khi được fine tuning được lưu tại [baduyne/whisper-small-vi](https://huggingface.co/baduyne/whisper-small-vi)
 ##  Tính năng chính
 -  **Nhận dạng giọng nói tiếng Việt** chính xác, hỗ trợ cả đa ngôn ngữ.
 -  **Giảm tỉ lệ lỗi WER** thông qua model fine-tune: [whisper-small-vi](https://huggingface.co/baduyne/whisper-small-vi).
@@ -19,6 +19,7 @@ pip install -r requirements.txt
 ```
 
 ### Tải tài nguyên
+Vì github không cho upload quá 100MB, do đó cần file setup này để  tải riêng các tài nguyên cần thiết.
 ```bash
 python3 setup.py
 ```

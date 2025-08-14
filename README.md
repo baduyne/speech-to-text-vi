@@ -7,7 +7,7 @@ Hệ thống đã được **fine-tune** để giảm tỷ lệ lỗi WER (Word 
 Mô hình sau khi được fine tuning được lưu tại [baduyne/whisper-small-vi](https://huggingface.co/baduyne/whisper-small-vi).
 ##  Tính năng chính
 -  **Nhận dạng giọng nói tiếng Việt** chính xác, hỗ trợ cả đa ngôn ngữ.
--  **Giảm tỉ lệ lỗi WER** thông qua model fine-tune model hình gốc [whisper-small-vi](https://huggingface.co/openai/whisper-small).
+-  **Giảm tỉ lệ lỗi WER** thông qua model fine-tune model hình gốc [whisper-small](https://huggingface.co/openai/whisper-small).
 -  **Giảm nhiễu môi trường** ví dụ như tiếng quạt, tiếng ồn nền.
 -  **Hỗ trợ đa nền tảng**: Mobile, Windows, MacOS thông qua chuyển đổi định dạng từ [whisper.cpp](https://github.com/ggml-org/whisper.cpp).
 - **Xử lý nhanh, nhẹ** nhờ tối ưu từ ggml và quantizer dạng Q5 với kích thước chỉ 190MB.

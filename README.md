@@ -9,7 +9,7 @@ Hệ thống đã được **fine-tune** để giảm tỷ lệ lỗi WER (Word 
 -  **Giảm tỉ lệ lỗi WER** thông qua model fine-tune: [whisper-small-vi](https://huggingface.co/baduyne/whisper-small-vi).
 -  **Giảm nhiễu môi trường** ví dụ như tiếng quạt, tiếng ồn nền.
 -  **Hỗ trợ đa nền tảng**: Mobile, Windows, MacOS thông qua chuyển đổi định dạng từ [whisper.cpp](https://github.com/ggml-org/whisper.cpp).
-- **Xử lý nhanh, nhẹ** nhờ tối ưu từ ggml và quantizer dạng Q5 với kích thước chỉ 189MB.
+- **Xử lý nhanh, nhẹ** nhờ tối ưu từ ggml và quantizer dạng Q5 với kích thước chỉ 190MB.
 
 
 ## Cài đặt & Chạy
@@ -34,7 +34,18 @@ Mở trình duyệt và vào địa chỉ:
 http://localhost:8000
 ```
 
+### Kiểm tra mô hình với data ngôn ngữ
+Tiếng pháp.
+```
+./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/de_test.mp3 -l auto -otxt
+```
+
+Tiếng anh.
+```
+./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/en_test.mp3 -l auto -otxt
+```
+- Trong đó, "-l" "auto" là chế độ tự động nhận dạng ngôn ngữ.
+
 ## Tham khảo
 - [Whisper.cpp](https://github.com/ggml-org/whisper.cpp) – Phiên bản Whisper tối ưu cho CPU và đa nền tảng.
-- [Whisper-small-vi fine-tune](https://huggingface.co/baduyne/whisper-small-vi) – Model tối ưu cho tiếng Việt.
 - [noisereduce](https://pypi.org/project/noisereduce/) – Thư viện lọc nhiễu môi trường.

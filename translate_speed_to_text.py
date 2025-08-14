@@ -50,7 +50,7 @@ def process_audio(file_path: str) -> str:
         if os.path.exists(txt_file):
             with open(txt_file, "r", encoding="utf-8") as f:
                 txt_output = f.read().strip()
-            # os.remove(txt_file)
+            os.remove(txt_file)
     except subprocess.CalledProcessError as e:
         txt_output = f"Whisper error: {e.stderr}"
 

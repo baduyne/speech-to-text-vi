@@ -7,6 +7,7 @@ import sys
 MODEL_REPO = "baduyne/whisper-small-vi"
 MERGED_MODEL_PATH = "./whisper-finetune-small-vi"
 
+# Download necessary libraries 
 subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], check=True)
 
 # ==== 1. Merge LoRA ====
@@ -77,3 +78,7 @@ if not os.path.exists(Q5_PATH):
 
 else:
     print(f"Quantized model already exists: {Q5_PATH}")
+
+
+# download model ollama 
+subprocess.run(["ollama", "pull", "gemma3:1b"]) 

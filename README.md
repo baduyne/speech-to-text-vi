@@ -37,12 +37,12 @@ http://localhost:8000
 ```
 
 ### Kiểm tra mô hình với data ngôn ngữ
-Tiếng pháp.
+Tiếng Đức.
 ```
 ./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/de_test.mp3 -l auto -otxt
 ```
 
-Tiếng anh.
+Tiếng Anh.
 ```
 ./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/en_test.mp3 -l auto -otxt
 ```

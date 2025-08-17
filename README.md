@@ -1,53 +1,53 @@
-# Hệ thống Nhận dạng Giọng nói Tiếng Việt (ASR)
+# Vietnamese Automatic Speech Recognition (ASR) System
 
-## Giới thiệu
-Dự án này triển khai hệ thống **Automatic Speech Recognition (ASR)** cho tiếng Việt, đồng thời hỗ trợ **đa ngôn ngữ**.
-Hệ thống đã được **fine-tune** để giảm tỷ lệ lỗi WER (Word Error Rate) và tích hợp **lọc nhiễu môi trường** giúp cải thiện độ chính xác nhận dạng.
+## Introduction
+This project implements an **Automatic Speech Recognition (ASR)** system for Vietnamese, with **multilingual support**.  
+The system has been **fine-tuned** to reduce the Word Error Rate (WER) and integrates **environmental noise reduction** to improve recognition accuracy.  
 
-Mô hình sau khi được fine tuning được lưu tại [baduyne/whisper-small-vi](https://huggingface.co/baduyne/whisper-small-vi).
-##  Tính năng chính
--  **Nhận dạng giọng nói tiếng Việt** chính xác, hỗ trợ cả đa ngôn ngữ.
--  **Giảm tỉ lệ lỗi WER** thông qua model fine-tune model hình gốc [whisper-small](https://huggingface.co/openai/whisper-small).
--  **Giảm nhiễu môi trường** ví dụ như tiếng quạt, tiếng ồn nền.
--  **Hỗ trợ đa nền tảng**: Mobile, Windows, MacOS thông qua chuyển đổi định dạng từ [whisper.cpp](https://github.com/ggml-org/whisper.cpp).
-- **Xử lý nhanh, nhẹ** nhờ tối ưu từ ggml và quantizer dạng Q5 với kích thước chỉ 190MB.
+The fine-tuned model is available at [baduyne/whisper-small-vi](https://huggingface.co/baduyne/whisper-small-vi).
 
+## Key Features
+- **Accurate Vietnamese speech recognition**, with multilingual support.  
+- **Reduced WER** through fine-tuning of the base [whisper-small](https://huggingface.co/openai/whisper-small) model.  
+- **Noise reduction** for environmental sounds such as fans, background chatter, etc.  
+- **Cross-platform support**: Mobile, Windows, MacOS via format conversion from [whisper.cpp](https://github.com/ggml-org/whisper.cpp).  
+- **Fast and lightweight** thanks to ggml optimizations and Q5 quantization, with a compact model size of just 190MB.  
 
-## Cài đặt & Chạy
-### Cài đặt thư viện
+## Installation & Usage
+
+### Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### Tải tài nguyên
-Vì github không cho upload quá 100MB, do đó cần file setup này để  tải riêng các tài nguyên cần thiết.
+Download resources
+Since GitHub does not allow uploading files larger than 100MB, use the following script to download required resources:
 ```bash
 python3 setup.py
 ```
-
-### Chạy API
+Run API
 ```bash
 uvicorn app:app --reload
 ```
 
-### Truy cập
-Mở trình duyệt và vào địa chỉ:
-```
+Access the API
+Open your browser and go to:
+```bash
 http://localhost:8000
 ```
-
-### Kiểm tra mô hình với data ngôn ngữ
-Tiếng Đức.
-```
+Test the model with different languages
+German:
+```bash
 ./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/de_test.mp3 -l auto -otxt
 ```
-
-Tiếng Anh.
-```
+English:
+```bash
 ./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/en_test.mp3 -l auto -otxt
 ```
-- Trong đó, "-l" "auto" là chế độ tự động nhận dạng ngôn ngữ.
+- The -l auto option enables automatic language detection.
+References
 
-## Tham khảo
-- [Whisper.cpp](https://github.com/ggml-org/whisper.cpp) – Phiên bản Whisper tối ưu cho CPU và đa nền tảng.
-- [noisereduce](https://pypi.org/project/noisereduce/) – Thư viện lọc nhiễu môi trường.
+(Whisper.cpp)[https://github.com/ggml-org/whisper.cpp] – Optimized Whisper implementation for CPU and cross-platform usage.
+
+(noisereduce)[https://pypi.org/project/noisereduce/1.0.1/] – A Python library for environmental noise reduction.
+

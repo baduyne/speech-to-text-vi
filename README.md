@@ -11,8 +11,8 @@ The fine-tuned model is available at [baduyne/whisper-small-vi](https://huggingf
 - **Reduced WER** through fine-tuning of the base [whisper-small](https://huggingface.co/openai/whisper-small) model.  
 - **Noise reduction** for environmental sounds such as fans, background chatter, etc.  
 - **Cross-platform support**: Mobile, Windows, MacOS via format conversion from [whisper.cpp](https://github.com/ggml-org/whisper.cpp).  
-- **Fast and lightweight** thanks to ggml optimizations and Q5 quantization, with a compact model size of just 190MB.  
-
+- **Fast and lightweight** thanks to ggml optimizations and Q5 quantization, reducing the model size by ~5x (from ~1GB to just 190MB).
+  
 ## Installation & Usage
 
 ### Install dependencies

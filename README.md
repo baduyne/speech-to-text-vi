@@ -29,13 +29,12 @@ Run API
 ```bash
 uvicorn app:app --reload
 ```
-
 Access the API
 Open your browser and go to:
 ```bash
 http://localhost:8000
 ```
-Test the model with different languages
+### Test the model with different languages
 German:
 ```bash
 ./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/de_test.mp3 -l auto -otxt
@@ -46,8 +45,6 @@ English:
 ```
 - The -l auto option enables automatic language detection.
 References
-
-(Whisper.cpp)[https://github.com/ggml-org/whisper.cpp] – Optimized Whisper implementation for CPU and cross-platform usage.
-
-(noisereduce)[https://pypi.org/project/noisereduce/1.0.1/] – A Python library for environmental noise reduction.
+[Whisper.cpp](https://github.com/ggml-org/whisper.cpp) – Optimized Whisper implementation for CPU and cross-platform usage.
+[noisereduce](https://pypi.org/project/noisereduce/1.0.1/) – A Python library for environmental noise reduction.
 

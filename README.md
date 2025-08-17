@@ -44,7 +44,7 @@ English:
 ./whisper.cpp/build/bin/whisper-cli -m ggml-model-q5.ggml -f test_audio/en_test.mp3 -l auto -otxt
 ```
 - The -l auto option enables automatic language detection.
-References
-[Whisper.cpp](https://github.com/ggml-org/whisper.cpp) – Optimized Whisper implementation for CPU and cross-platform usage.
-[noisereduce](https://pypi.org/project/noisereduce/1.0.1/) – A Python library for environmental noise reduction.
+## References
+- [Whisper.cpp](https://github.com/ggml-org/whisper.cpp) – Optimized Whisper implementation for CPU and cross-platform usage.
+- [noisereduce](https://pypi.org/project/noisereduce/1.0.1/) – A Python library for environmental noise reduction.
 
